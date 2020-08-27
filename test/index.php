@@ -1,5 +1,5 @@
 <?php
-session_start();
+require("locker.php");
 if(isset($_SESSION["username"])){
     $arr = [0];
     @$arr = $_SESSION['cart'];
@@ -111,7 +111,9 @@ $result=mysqli_query($link,$sql);
                 <?php if($user == 'Vistor'){?>
                     <li><a href="newuser.php">註冊</a></li>
                     <li><a href="login.php">登入</a></li>
-                <?php }else{ ?>
+                <?php }else if( $user=='admin' || $user == 'root'){ ?>
+                    <li><a href="./admin/">管理</a></li>
+                <?php }else { ?>
                     <li><a href="login.php?out=1">登出</a></li>
                     <li><a href="info.php" id="info">會員資訊</a></li>
                     <li><a id="cart" style="cursor:pointer" >購物車</a></li>
@@ -178,7 +180,7 @@ $result=mysqli_query($link,$sql);
                         };
                     }
                     </script> -->
-                    <td><a href="cart.php?prodId=<?=$row["prodId"]?>&prodName=<?=$row["prodName"]?>" >加入購物車</td>
+                    <td><a href="cart.php?prodId=<?=$row["prodId"]?>&prodName=<?=$row["prodName"]?>" style="color:green" >加入購物車</a></td>
                 <?php }?>
             </tr>
             <?php }?>

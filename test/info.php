@@ -6,15 +6,15 @@ $sql="select userId,userName,balance from player where userName = '$name'";
 // echo $sql;
 $result=mysqli_query($link,$sql);
 
-
-
 ?>
-
-
 <!DOCTYPE html>
 <html>
 <head>
 <style>
+a{
+  text-decoration: none;
+  color:blue;
+}
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -34,8 +34,12 @@ tr:nth-child(even) {
 </head>
 <body>
 
-<h2>會員中心</h2>
-
+<h2>會員中心
+    <span class="float-right">
+      <td><a href="index.php">返回首頁</a></td>
+    </span>
+</h2>
+    
 <table>
   <tr>
     <th>會員編號</th>

@@ -2,7 +2,7 @@
     if(isset($_POST["okButton"])){
         $name=$_POST["newName"];
         $password=$_POST["newPassword"];
-        $sql ="insert into player (userName,userPassword) values ('$name','$password');";
+        $sql ="insert into player (userName,userPassword,auth) values ('$name','$password','VorC');";
         require("condb.php");
         mysqli_query($link,$sql);
         header("location: index.php");
