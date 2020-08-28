@@ -15,17 +15,4 @@ foreach($arr as $key =>$val){
 }
 $_SESSION['cart'] = $arr;
 header("location:buycar.php");
-// $de=$_GET["de"];
-// $sql="delete from buying where orderId = $id ";
-// echo $sql;
-// require("condb.php");
-// echo "<script> 
-//                var \$de =window.confirm('確定是否要刪除');
-//                if (\$de == 1 ){
-//                   alert('確定刪除:$de');                         
-//                }else{
-//                   alert('取消');
-//                }
-//       </script>";
-// $result=mysqli_query($link,$sql);
 ?>

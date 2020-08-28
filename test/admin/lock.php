@@ -1,10 +1,5 @@
 <?php
-session_start();
-if(isset($_SESSION["suser"])){
-    $suser=$_SESSION["suser"];
-}else{
-    exit();
-}
+require("session.php");
 
 $statu=$_GET["auth"];
 $id=$_GET["userId"];

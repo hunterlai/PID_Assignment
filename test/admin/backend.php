@@ -1,13 +1,7 @@
 <?php
-session_start();
-if(isset($_SESSION["suser"])){
-    $suser=$_SESSION["suser"];
-}else{
-    header("location: http://localhost/PID_Assignment/test/");
-    exit();
-}
+require("session.php");
 require("condb.php");
-$sql="select prodId,prodName,unitPrice,unitStock from products";
+$sql="select prodId,prodName,unitPrice,unitStock,display from products ";
 $result=mysqli_query($link,$sql);
 
 $suser="select userId,userName,auth from player where userName != 'root' and userName != 'admin'";
@@ -34,7 +28,7 @@ $result2=mysqli_query($link,$suser);
 
 <div class="container">
         <span class="float-right">
-          <a href="logout.php?out=1" class="btn btn-outline-info btn-sm">logout!</a>    
+          <a href="logout.php?out=1" class="btn btn-outline-dark btn-sm">logout!</a>    
         </span>
   <h2>admin set</h2>
   <table class="table table-striped">
@@ -45,8 +39,9 @@ $result2=mysqli_query($link,$suser);
         <th>prodName</th>
         <th>unitPrice</th>
         <th>unitStock</th>
+        <th>display(0為下架)</th>
         <span class="float-right">
-          <a href="addprod.php" class="btn btn-outline-success btn-sm">add product</a>    
+          <a href="addprod.php" class="btn btn-outline-primary btn-sm">add product</a>    
         </span>
         <th>&nbsp;</th>
       </tr>
@@ -58,11 +53,12 @@ $result2=mysqli_query($link,$suser);
         <td><?=$row["prodName"]?></td>
         <td><?=$row["unitPrice"]?></td>
         <td><?=$row["unitStock"]?></td>
+        <td><?=$row["display"]?></td>
         <td>
             <span class="float-right">
-                <a href="#" class="btn btn-outline-success btn-sm" name="edit">Edit</a>
+                <a href="edit.php?prodId=<?=$row["prodId"]?>" class="btn btn-outline-success btn-sm" name="edit">Edit</a>
                 |
-                <a href="delete.php?" class="btn btn-outline-danger btn-sm" name="delete">Delete</a>
+                <a href="display.php?prodId=<?=$row["prodId"]?>" class="btn btn-outline-danger btn-sm" name="delete">Delete</a>
             </span>
         </td>
       </tr>

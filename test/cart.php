@@ -10,7 +10,7 @@ if(array_key_exists($name,$arr)){
     $a=$arr[$name]['unitStock']++;
     echo '已存在'.$arr[$name]['unitStock'];
 }else{
-    $sql="select * from products where prodId = $id";
+    $sql="select * from products where prodId = $id and display = 1";
     $result=mysqli_query($link,$sql);
     $row=mysqli_fetch_assoc($result);
 

@@ -19,7 +19,7 @@ if($total>0 && $row["balance"]>=$total){
     $coin=$row["balance"];
     foreach($arr as $val){
         $pid=$val['prodId'];
-        $sql2="select unitStock from products where prodId = $pid ";
+        $sql2="select unitStock from products where prodId = $pid and display = 1";
         $result2=mysqli_query($link,$sql2);
         $row2=mysqli_fetch_assoc($result2);
         if ($val['unitStock']>$row2["unitStock"]){
@@ -33,7 +33,7 @@ if($total>0 && $row["balance"]>=$total){
     foreach($arr as $val){
         $pid=$val['prodId'];
         $num=$val['unitStock'];
-        $sql2="select unitStock from products where prodId = $pid ";
+        $sql2="select unitStock from products where prodId = $pid and display = 1";
         $result2=mysqli_query($link,$sql2);
         $row2=mysqli_fetch_assoc($result2);
         $stock=$row2["unitStock"];

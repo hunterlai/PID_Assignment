@@ -11,7 +11,7 @@ if(isset($_GET["out"])){
     $_SESSION=array();
 }
 require("condb.php");
-$sql="select prodId,prodName,unitPrice from products";
+$sql="select prodId,prodName,unitPrice from products where display = 1";
 
 $result=mysqli_query($link,$sql);
 
@@ -112,6 +112,7 @@ $result=mysqli_query($link,$sql);
                     <li><a href="newuser.php">註冊</a></li>
                     <li><a href="login.php">登入</a></li>
                 <?php }else if( $user=='admin' || $user == 'root'){ ?>
+                    <li><a href="login.php?out=1">登出</a></li>
                     <li><a href="./admin/">管理</a></li>
                 <?php }else { ?>
                     <li><a href="login.php?out=1">登出</a></li>
