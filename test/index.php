@@ -203,6 +203,9 @@ if(isset($_POST["okbutton"])){
                 <li class="nav-item">
                     <a class="nav-link" href="buycar.php">購物庫</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="info.php">會員資訊</a>
+                </li>
                 <?php } ?>
         </ul>
         <ul class="ml-auto bg-dark">
