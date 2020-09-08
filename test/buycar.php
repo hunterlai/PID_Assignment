@@ -1,19 +1,22 @@
 <?php
     session_start();
-    $arr = $_SESSION['cart'];
-    if(isset($_SESSION['username'])){
-      $username=$_SESSION['username'];
-      // echo '會員'.$username;
-      require("condb.php");
-      $sql="select userId from player where userName = '{$username}' ";
-      // echo $sql;
-      $result=mysqli_query($link,$sql);
-      $row=mysqli_fetch_assoc($result);
-    }else{
-      echo '未登入';
-    }
-
     
+      
+      if(isset($_SESSION['username'])){
+        $username=$_SESSION['username'];
+        require("condb.php");
+        $sql="select userId from player where userName = '{$username}' ";
+        $result=mysqli_query($link,$sql);
+          $row=mysqli_fetch_assoc($result);
+        if(isset($_SESSION['cart'])){
+          $arr = $_SESSION['cart'];
+          } else{
+            $arr=[];
+          }
+      }else{
+      echo '未登入';
+      }
+  
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +45,7 @@
         <th>UnitPrice</th>
         <th>sum</th>
         <span class="float-right">
-          <a href="index.php" class="btn btn-outline-success btn-sm">more</a>    
+          <a href="index.php" class="btn btn-outline-success btn-sm">首頁</a>    
         </span>
         <th>&nbsp;</th>
       </tr>

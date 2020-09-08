@@ -70,11 +70,12 @@ $result2=mysqli_query($link,$suser);
   <table class="table table-striped">
     <thead>
       <tr>
-        <h4>player</h4>
-        <th>userId</th>
-        <th>userName</th>
-        <th>auth</th>
-        <th>ch auth</th>
+        <h4>會員</h4>
+        <th>編號</th>
+        <th>名稱</th>
+        <th>購買紀錄</th>
+        <th>狀態</th>
+        <th>鎖住使用者</th>
         <th>&nbsp;</th>
       </tr>
     </thead>
@@ -83,6 +84,7 @@ $result2=mysqli_query($link,$suser);
       <tr>
         <td><?=$row2["userId"]?></td>
         <td><?=$row2["userName"]?></td>
+        <td><a href="buywt.php?userId=<?=$row2["userId"]?>">查看</a></td>
         <td><?=$row2["auth"]?></td>
         <td>
             <a href="lock.php?auth=<?=$row2["auth"]?>&userId=<?=$row2["userId"]?>"><?=$row2["auth"]?></a>

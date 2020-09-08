@@ -1,18 +1,20 @@
 create database testforsql;
 
 /*註冊會員 balance餘額 auth狀態*/
+drop table if exists player;
 create table player(
     userId int primary key auto_increment not null,
     userName varchar(20) not null,
-    userPassword int not null,
+    userPassword varchar(64),
     balance int not null default '0',
     auth varchar(10) not null
 );
 
 insert into player (userName,userPassword,balance,auth) 
-values ('root',12345,100,'root'),('admin',54321,50,'admin'),('qwe',123,10000,'VorC');
+values ('root','12345',10000,'root'),('admin','54321',10000,'admin'),('qwe','123',10000,'VorC');
 
 /*產品*/
+drop table if exists products;
 create table products(
     prodId int primary key auto_increment not null,
     prodName varchar(20) not null,
@@ -21,9 +23,10 @@ create table products(
     display int(1) not null DEFAULT '1'
 );
 insert into products (prodName,unitPrice,unitStock,display)
-values ('w shoes',1000,10,1),('b shoes',2000,100,1),('g shoes',500,50,1),('b shoes',10000,10,1);
+values ('w shoes',1000,10,1),('b shoes',2000,100,1),('g shoes',500,50,1),('ab shoes',100,10,1);
 
 /*訂單*/
+drop table if exists orders;
 create table orders(
     orderId int primary key auto_increment not null,
     userId int not null,
@@ -32,6 +35,7 @@ create table orders(
 );
     
 /*訂單明細*/
+drop table if exists order_detail;
 create table order_detail(
     orderId int not null,
     prodId int not null,
