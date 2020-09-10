@@ -1,13 +1,11 @@
 <?php
 require("session.php");
 require("condb.php");
-$sql="select prodId,prodName,unitPrice,unitStock,display from products ";
+$sql="select prodId,prodName,unitPrice,unitStock,display,picId from products ";
 $result=mysqli_query($link,$sql);
 
 $suser="select userId,userName,auth from player where userName != 'root' and userName != 'admin'";
 $result2=mysqli_query($link,$suser);
-
-
 
 ?>
 
@@ -34,12 +32,13 @@ $result2=mysqli_query($link,$suser);
   <table class="table table-striped">
     <thead>
       <tr>
-        <h4>Product</h4>
+        <h4>Product &nbsp; <a href="../index.php" class="btn btn-outline-success btn-sm">觀看主頁面</a></h4>
         <th>prodId</th>
         <th>prodName</th>
         <th>unitPrice</th>
         <th>unitStock</th>
-        <th>display(0為下架)</th>
+        <th>0為下架</th>
+        <th>pic</th>
         <span class="float-right">
           <a href="addprod.php" class="btn btn-outline-primary btn-sm">add product</a>    
         </span>
@@ -54,6 +53,7 @@ $result2=mysqli_query($link,$suser);
         <td><?=$row["unitPrice"]?></td>
         <td><?=$row["unitStock"]?></td>
         <td><?=$row["display"]?></td>
+        <td><img style="width:50px; height:40px;" src="../img/<?=$row["picId"]?>"></td>
         <td>
             <span class="float-right">
                 <a href="edit.php?prodId=<?=$row["prodId"]?>" class="btn btn-outline-success btn-sm" name="edit">Edit</a>

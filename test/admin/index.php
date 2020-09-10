@@ -13,7 +13,7 @@
             $suser=$_POST["username"];
             $_SESSION["suser"]=$suser;
             echo "i can write";
-            header("location: backend.php");
+            header("location: ../index.php");
         }else{
             echo "u can't enter";
             header("location: http://localhost/PID_Assignment/test/");

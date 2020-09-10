@@ -20,7 +20,8 @@ create table products(
     prodName varchar(20) not null,
     unitPrice int not null,
     unitStock int not null,
-    display int(1) not null DEFAULT '1'
+    display int(1) not null DEFAULT '1',
+    picId varchar(20)
 );
 insert into products (prodName,unitPrice,unitStock,display)
 values ('w shoes',1000,10,1),('b shoes',2000,100,1),('g shoes',500,50,1),('ab shoes',100,10,1);

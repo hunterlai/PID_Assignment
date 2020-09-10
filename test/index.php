@@ -9,6 +9,9 @@ if(isset($_SESSION["username"])){
 }else{
     $user="Vistor";
 }
+if(isset($_SESSION["suser"])){
+    $suser=$_SESSION["suser"];
+}
 if(isset($_GET["out"])){
     $_SESSION=array();
 }
@@ -26,7 +29,7 @@ if(isset($_POST["okbtn"])){
     header("location: index.php");
 }
 require("condb.php");
-$sql="select prodId,prodName,unitPrice from products where display = 1";
+$sql="select prodId,prodName,unitPrice,picId from products where display = 1";
 $result=mysqli_query($link,$sql);
 
 if(isset($_POST["okbutton"])){
@@ -197,7 +200,11 @@ if(isset($_POST["okbutton"])){
         <a class="navbar-brand" href="#">shop</a>
         <ul class="navbar-nav bg-dark ">
                 <li class="nav-item">
+                <?php if(isset($suser)&&($suser=='admin' || $suser=='root')){?>
+                    <a class="nav-link" id="home">您好！<?=$suser?></a>
+                <?php }else{ ?>
                     <a class="nav-link" id="home">您好！<?=$user?></a>
+                <?php }?>
                 </li>
                 <?php if($user!='Vistor' && $user!='admin' && $user!='root'){?>
                 <li class="nav-item">
@@ -209,7 +216,7 @@ if(isset($_POST["okbutton"])){
                 <?php } ?>
         </ul>
         <ul class="ml-auto bg-dark">
-            <?php if($user=='Vistor'){?>
+            <?php if($user=='Vistor'&&(!isset($suser))){?>
             <li class="nav-item ">
             <button type="button" class="btn btn-primary btn-sm text-center" data-toggle="modal" data-target="#Modal" >
             <svg width="1em" height="1em" viewBox="0 0 16 16" style="margin-bottom:2px;" class="bi bi-person-circle " fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -219,16 +226,7 @@ if(isset($_POST["okbutton"])){
             </svg>
             登／註</button>
             </li>
-            <?php }else if($user=='admin'||$user=='root'){?>
-                <li class="nav-item">
-                    <a class="nav-link" href="logout.php?out=1">登出</a>
-                </li>
-                <li class="nav-item">
-                    <a href="./admin/" class="nav-link" id="cart" style="cursor:pointer"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-wrench" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M.102 2.223A3.004 3.004 0 0 0 3.78 5.897l6.341 6.252A3.003 3.003 0 0 0 13 16a3 3 0 1 0-.851-5.878L5.897 3.781A3.004 3.004 0 0 0 2.223.1l2.141 2.142L4 4l-1.757.364L.102 2.223zm13.37 9.019L13 11l-.471.242-.529.026-.287.445-.445.287-.026.529L11 13l.242.471.026.529.445.287.287.445.529.026L13 15l.471-.242.529-.026.287-.445.445-.287.026-.529L15 13l-.242-.471-.026-.529-.445-.287-.287-.445-.529-.026z"/>
-                    </svg>管理端</a>
-                </li>
-            <?php }else{ ?>
+            <?php }else if($user!='Vistor'){?>
                 <li class="nav-item">
                     <a class="nav-link" href="logout.php?out=1">登出</a>
                 </li>
@@ -236,6 +234,16 @@ if(isset($_POST["okbutton"])){
                     <a class="nav-link" id="cart" style="cursor:pointer"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-fill " style="margin-bottom:5px;" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
                     </svg>購物車</a>
+                </li>
+            <?php }?>
+            <?php if(isset($suser)&&($suser=='admin'||$user=='root')){ ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="logout.php?out=1">登出</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./admin/backend.php" class="nav-link" id="cart" style="cursor:pointer"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-wrench" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M.102 2.223A3.004 3.004 0 0 0 3.78 5.897l6.341 6.252A3.003 3.003 0 0 0 13 16a3 3 0 1 0-.851-5.878L5.897 3.781A3.004 3.004 0 0 0 2.223.1l2.141 2.142L4 4l-1.757.364L.102 2.223zm13.37 9.019L13 11l-.471.242-.529.026-.287.445-.445.287-.026.529L11 13l.242.471.026.529.445.287.287.445.529.026L13 15l.471-.242.529-.026.287-.445.445-.287.026-.529L15 13l-.242-.471-.026-.529-.445-.287-.287-.445-.529-.026z"/>
+                    </svg>管理端</a>
                 </li>
             <?php } ?>
         </ul>
@@ -271,7 +279,7 @@ if(isset($_POST["okbutton"])){
             <?php while($row=mysqli_fetch_assoc($result)) { ?>
             <tr>
                 <td><?=$row["prodId"]?></td>
-                <td><img class="resize" src="./img/<?=$row["prodId"]?>.jpg"></td>
+                <td><img class="resize" src="./img/<?=$row["picId"]?>"></td>
                 <td><?=$row["prodName"]?></td>
                 <td><?=$row["unitPrice"]?></td>
                 <?php if ($user == "Vistor" ) { ?>
