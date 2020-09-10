@@ -13,7 +13,7 @@ if(isset($_SESSION["suser"])){
     $suser=$_SESSION["suser"];
 }
 if(isset($_GET["out"])){
-    $_SESSION=array();
+    $_SESSION['cart']=[];
 }
 if(isset($_POST["okbtn"])){
     $name=$_POST["newName"];
@@ -279,7 +279,7 @@ if(isset($_POST["okbutton"])){
             <?php while($row=mysqli_fetch_assoc($result)) { ?>
             <tr>
                 <td><?=$row["prodId"]?></td>
-                <td><img class="resize" src="./img/<?=$row["picId"]?>"></td>
+                <td><img class="resize" src="./img/<?php if(!isset($row["picId"])){echo "404.jpg";}else{echo $row["picId"];}?>"></td>
                 <td><?=$row["prodName"]?></td>
                 <td><?=$row["unitPrice"]?></td>
                 <?php if ($user == "Vistor" ) { ?>
